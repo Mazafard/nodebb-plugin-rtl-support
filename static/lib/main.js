@@ -3,7 +3,35 @@
 /* global $, window */
 
 (function () {
-	const rtlRegex = /[\p{Script=Arabic}\p{Script=Hebrew}\p{Script=Syriac}]/u;
+	const rtlCharRegex = /[\p{Script=Arabic}\p{Script=Hebrew}\p{Script=Syriac}\p{Script=Thaana}]/u;
+	const strongCharRegex = /[\p{Script=Arabic}\p{Script=Hebrew}\p{Script=Syriac}\p{Script=Thaana}\p{Script=Latin}\p{Script=Greek}\p{Script=Cyrillic}]/u;
+
+	function isRTL(text) {
+		if (!text || typeof text !== 'string') {
+			return false;
+		}
+		if (!rtlCharRegex.test(text)) {
+			return false;
+		}
+
+		// 1. First strong directional character (Unicode BiDi rule)
+		for (const char of text) {
+			if (strongCharRegex.test(char)) {
+				if (rtlCharRegex.test(char)) {
+					return true;
+				}
+				break; // First strong character is LTR
+			}
+		}
+
+		// 2. Fallback: If text starts with an LTR token (e.g. brand name), check character ratio
+		const rtlMatches = text.match(/[\p{Script=Arabic}\p{Script=Hebrew}\p{Script=Syriac}\p{Script=Thaana}]/gu);
+		const ltrMatches = text.match(/[\p{Script=Latin}\p{Script=Greek}\p{Script=Cyrillic}]/gu);
+		const rtlCount = rtlMatches ? rtlMatches.length : 0;
+		const ltrCount = ltrMatches ? ltrMatches.length : 0;
+
+		return rtlCount > ltrCount;
+	}
 
 	// Apply RTL to post content and composer preview (handles markdown lists, headings, quotes, paragraphs)
 	function applyPostRTL(container) {
@@ -19,7 +47,7 @@
 				return;
 			}
 			const text = el.text().trim();
-			if (rtlRegex.test(text)) {
+			if (isRTL(text)) {
 				el.attr('dir', 'rtl');
 			}
 		});
@@ -31,11 +59,11 @@
 			if (!childLis.length) {
 				return;
 			}
-			const hasRtl = childLis.filter(function () {
-				return $(this).attr('dir') === 'rtl' || $(this).find('[dir="rtl"]').length > 0;
-			}).length > 0;
+			const rtlLis = childLis.filter(function () {
+				return $(this).attr('dir') === 'rtl';
+			});
 
-			if (hasRtl) {
+			if (rtlLis.length > (childLis.length / 2)) {
 				list.attr('dir', 'rtl');
 			}
 		});
@@ -57,7 +85,7 @@
 				return; // Handled by applyPostRTL
 			}
 			const text = el.text().trim();
-			if (rtlRegex.test(text)) {
+			if (isRTL(text)) {
 				el.attr('dir', 'rtl');
 			}
 		});
@@ -76,7 +104,7 @@
 
 		function checkInputRTL(el) {
 			const val = el.val();
-			if (val && rtlRegex.test(val)) {
+			if (val && isRTL(val)) {
 				el.attr('dir', 'rtl');
 			} else if (!val || val.trim() === '') {
 				el.removeAttr('dir');
