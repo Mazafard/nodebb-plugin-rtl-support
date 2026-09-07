@@ -1,8 +1,102 @@
-/* NodeBB RTL Support Plugin Styles */
+/* NodeBB RTL Support & Vazirmatn Persian Typography Plugin Styles */
+
+/* ==========================================================================
+   1. Vazirmatn Variable Font Declarations
+   ========================================================================== */
+
+/* Arabic & Persian Subset (Includes Persian/Arabic letters, diacritics, and ZWNJ U+200C) */
+@font-face {
+	font-family: 'Vazirmatn';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url("./plugins/nodebb-plugin-rtl-support/fonts/vazirmatn-arabic-wght-normal.woff2") format("woff2-variations"),
+	     url("./plugins/nodebb-plugin-rtl-support/static/fonts/vazirmatn-arabic-wght-normal.woff2") format("woff2-variations");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+@font-face {
+	font-family: 'Vazirmatn Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url("./plugins/nodebb-plugin-rtl-support/fonts/vazirmatn-arabic-wght-normal.woff2") format("woff2-variations"),
+	     url("./plugins/nodebb-plugin-rtl-support/static/fonts/vazirmatn-arabic-wght-normal.woff2") format("woff2-variations");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+/* Latin Subset (Matches Vazirmatn style when Latin text is inside RTL blocks) */
+@font-face {
+	font-family: 'Vazirmatn';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url("./plugins/nodebb-plugin-rtl-support/fonts/vazirmatn-latin-wght-normal.woff2") format("woff2-variations"),
+	     url("./plugins/nodebb-plugin-rtl-support/static/fonts/vazirmatn-latin-wght-normal.woff2") format("woff2-variations");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   2. Global Typography & Unicode-Range Scoping
+   ========================================================================== */
+
+:root {
+	--font-family-persian: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Prepend Vazirmatn globally to body and typography classes.
+   Due to the unicode-range above, this ONLY targets Persian/Arabic characters site-wide
+   (navigation, topic titles, category cards, buttons, badges, modals, profile),
+   leaving Latin letters rendered in the theme's native font! */
+body,
+.ff-base,
+.ff-sans,
+.topic-title,
+[component="topic/title"],
+[component="category/topic"],
+[component="categories/category"],
+.category-item,
+.nav-link,
+.btn,
+.dropdown-item,
+.badge,
+.modal-title,
+.alert {
+	font-family: 'Vazirmatn', var(--bs-body-font-family, var(--font-family-base, inherit));
+}
+
+/* ==========================================================================
+   3. RTL Direction & Layout Rules
+   ========================================================================== */
 
 [dir="rtl"] {
 	text-align: right;
 	direction: rtl;
+}
+
+/* Explicit RTL and Persian Language Containers */
+[dir="rtl"],
+html[dir="rtl"] body,
+html[lang^="fa"] body,
+.post-content[dir="rtl"],
+.composer-preview[dir="rtl"],
+.composer .write[dir="rtl"],
+textarea[dir="rtl"],
+input[dir="rtl"],
+.persian-text {
+	font-family: var(--font-family-persian) !important;
+}
+
+/* Optimal line-height for Persian reading (prevents ascender/descender clipping) */
+[dir="rtl"] p,
+[dir="rtl"] li,
+.post-content[dir="rtl"],
+.post-content :is(p, li)[dir="rtl"],
+.composer-preview[dir="rtl"],
+.composer-preview :is(p, li)[dir="rtl"],
+html[dir="rtl"] .post-content,
+html[lang^="fa"] .post-content {
+	line-height: 1.75;
 }
 
 /* RTL Lists Formatting for Forum Posts and Composer Preview */
@@ -27,10 +121,13 @@
 }
 
 /* RTL Headings */
+[dir="rtl"]:is(h1, h2, h3, h4, h5, h6),
 .post-content :is(h1, h2, h3, h4, h5, h6)[dir="rtl"],
 .composer-preview :is(h1, h2, h3, h4, h5, h6)[dir="rtl"] {
 	direction: rtl !important;
 	text-align: right !important;
+	font-family: var(--font-family-persian) !important;
+	line-height: 1.5 !important;
 }
 
 /* RTL Blockquotes */
@@ -42,4 +139,15 @@
 	border-left: none !important;
 	padding-right: 1rem !important;
 	padding-left: 0 !important;
+	line-height: 1.75;
 }
+
+/* Preserve Monospace Font and LTR Alignment for Code Blocks */
+[dir="rtl"] :is(pre, code, kbd, samp),
+.post-content :is(pre, code, kbd, samp)[dir="rtl"],
+.composer-preview :is(pre, code, kbd, samp)[dir="rtl"] {
+	font-family: var(--font-family-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace) !important;
+	direction: ltr !important;
+	text-align: left !important;
+}
+

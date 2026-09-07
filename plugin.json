@@ -1,7 +1,7 @@
 {
   "id": "nodebb-plugin-rtl-support",
   "name": "NodeBB RTL Support",
-  "description": "Automatic Right-to-Left (RTL) support for lists, headings, and quotes in Persian, Arabic, and Hebrew",
+  "description": "Right-to-Left (RTL) support and bundled Vazirmatn variable font typography for Persian, Arabic, and Hebrew",
   "url": "https://github.com/Mazafard/nodebb-plugin-rtl-support",
   "library": "./library.js",
   "hooks": [
@@ -9,6 +9,7 @@
     { "hook": "filter:parse.raw", "method": "parseRaw", "priority": 6 }
   ],
   "staticDirs": {
+    "fonts": "./static/fonts",
     "static": "./static"
   },
   "css": [
