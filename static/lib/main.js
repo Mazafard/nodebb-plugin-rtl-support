@@ -75,18 +75,37 @@
 			return;
 		}
 
-		// Remove any accidental dir="rtl" on layout containers
-		container.find('[component="categories/category"], [component="category/topic"], ul.categories, [component="categories/list"]').removeAttr('dir');
+		// Ensure layout and metadata containers NEVER have dir="rtl" (keeps avatars, timestamps, and card grids aligned properly)
+		container.find([
+			'[component="categories/category"]',
+			'[component="category/topic"]',
+			'ul.categories',
+			'[component="categories/list"]',
+			'.teaser',
+			'[component="topic/teaser"]',
+			'.lastpost',
+			'[component="category/posts"]',
+			'.text-nowrap'
+		].join(', ')).removeAttr('dir');
 
-		// Target only leaf text elements
-		container.find('[component="topic/title"], .topic-title, [component="category/topic"] [component="topic/header"] a, [component="categories/category"] h2 a, .category-info .description, [component="category/description"], [component="category/topic"] .teaser, [component="categories/category"] .teaser, [component="post/content"]').each(function () {
+		// Target ONLY specific leaf text elements (topic titles, category descriptions, teaser post text snippets)
+		container.find([
+			'[component="topic/title"]',
+			'.topic-title',
+			'[component="category/topic"] [component="topic/header"] a',
+			'[component="categories/category"] h2 a',
+			'.category-info .description',
+			'[component="category/description"]',
+			'[component="topic/teaser"] .post-content',
+			'.teaser .post-content',
+			'.teaser [component="post/content"]'
+		].join(', ')).each(function () {
 			const el = $(this);
-			if (el.closest('.post-content, .composer-preview').length) {
-				return; // Handled by applyPostRTL
-			}
 			const text = el.text().trim();
 			if (isRTL(text)) {
 				el.attr('dir', 'rtl');
+			} else {
+				el.removeAttr('dir');
 			}
 		});
 	}

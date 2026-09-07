@@ -151,3 +151,12 @@ html[lang^="fa"] .post-content {
 	text-align: left !important;
 }
 
+/* Teaser metadata (avatar & timestamp) must always remain LTR next to the category border line */
+[component="topic/teaser"] .text-nowrap,
+.teaser .text-nowrap,
+.lastpost .text-nowrap {
+	direction: ltr !important;
+	text-align: left !important;
+}
+
+

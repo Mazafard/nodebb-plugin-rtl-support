@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-rtl-support",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Right-to-Left (RTL) support and bundled Vazirmatn variable font typography for Persian, Arabic, and Hebrew in NodeBB",
   "main": "library.js",
   "scripts": {
