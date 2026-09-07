@@ -1,0 +1,26 @@
+{
+  "name": "nodebb-plugin-rtl-support",
+  "version": "1.0.0",
+  "description": "Automatic Right-to-Left (RTL) support for Persian, Arabic, and Hebrew lists, headings, and quotes in NodeBB",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Mazafard/nodebb-plugin-rtl-support.git"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "rtl",
+    "persian",
+    "arabic",
+    "hebrew",
+    "markdown",
+    "lists"
+  ],
+  "author": "Mazafard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mazafard/nodebb-plugin-rtl-support/issues"
+  },
+  "homepage": "https://github.com/Mazafard/nodebb-plugin-rtl-support#readme"
+}

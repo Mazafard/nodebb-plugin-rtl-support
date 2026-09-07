@@ -1,0 +1,45 @@
+/* NodeBB RTL Support Plugin Styles */
+
+[dir="rtl"] {
+	text-align: right;
+	direction: rtl;
+}
+
+/* RTL Lists Formatting for Forum Posts and Composer Preview */
+.post-content :is(ul, ol)[dir="rtl"],
+.composer-preview :is(ul, ol)[dir="rtl"],
+.post-content :is(ul, ol):has(> li[dir="rtl"]),
+.composer-preview :is(ul, ol):has(> li[dir="rtl"]),
+.post-content :is(ul, ol):has(> li > p[dir="rtl"]),
+.composer-preview :is(ul, ol):has(> li > p[dir="rtl"]) {
+	direction: rtl !important;
+	text-align: right !important;
+	padding-right: 2.2rem !important;
+	padding-left: 0 !important;
+}
+
+.post-content li[dir="rtl"],
+.composer-preview li[dir="rtl"],
+.post-content li:has(> p[dir="rtl"]),
+.composer-preview li:has(> p[dir="rtl"]) {
+	direction: rtl !important;
+	text-align: right !important;
+}
+
+/* RTL Headings */
+.post-content :is(h1, h2, h3, h4, h5, h6)[dir="rtl"],
+.composer-preview :is(h1, h2, h3, h4, h5, h6)[dir="rtl"] {
+	direction: rtl !important;
+	text-align: right !important;
+}
+
+/* RTL Blockquotes */
+.post-content blockquote[dir="rtl"],
+.composer-preview blockquote[dir="rtl"] {
+	direction: rtl !important;
+	text-align: right !important;
+	border-right: 4px solid var(--bs-border-color, #dee2e6) !important;
+	border-left: none !important;
+	padding-right: 1rem !important;
+	padding-left: 0 !important;
+}
